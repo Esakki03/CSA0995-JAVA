@@ -1,0 +1,57 @@
+import java.util.Arrays;
+public class ArrayStatistics {
+    public static void main(String[] args) {
+        double[] numbers = {16, 18, 27, 16, 23, 21, 19};
+        Arrays.sort(numbers);
+
+        double mean = calculateMean(numbers);
+        double median = calculateMedian(numbers);
+        double mode = calculateMode(numbers);
+
+        System.out.println("Mean = " + mean);
+        System.out.println("Median = " + median);
+        System.out.println("Mode = " + mode);
+    }
+
+    private static double calculateMean(double[] numbers) {
+        double sum = 0;
+        for (double num : numbers) {
+            sum += num;
+        }
+        return sum / numbers.length;
+    }
+
+    private static double calculateMedian(double[] numbers) {
+        if (numbers.length % 2 == 0) {
+            int middle1 = numbers.length / 2 - 1;
+            int middle2 = numbers.length / 2;
+            return (numbers[middle1] + numbers[middle2]) / 2.0;
+        } else {
+            int middle = numbers.length / 2;
+            return numbers[middle];
+        }
+    }
+
+    private static double calculateMode(double[] numbers) {
+        double mode = numbers[0];
+        int maxCount = 0;
+
+        double currentNum = numbers[0];
+        int currentCount = 1;
+
+        for (int i = 1; i < numbers.length; i++) {
+            if (numbers[i] == currentNum) {
+                currentCount++;
+            } else {
+                if (currentCount > maxCount) {
+                    maxCount = currentCount;
+                    mode = currentNum;
+                }
+                currentNum = numbers[i];
+                currentCount = 1;
+            }
+        }
+
+        return mode;
+    }
+}
